@@ -27,29 +27,23 @@ async function analyzeData(req, res) {
 
     const rand = Math.random();
 
-    if (rand < 0.8) {
-      // 🟢 80% NORMAL TRAFFIC
-      result = {
-        anomaly: false,
-        attackType: "BENIGN",
-        timestamp: new Date(),
-      };
-    } else {
-      // 🔴 20% ATTACK TRAFFIC
-
-      // 💀 occasional burst attack
-      const burst = Math.random() < 0.4;
-
-      const attacks = burst
-        ? ["DDoS"] // heavy spike
-        : ["PortScan", "BruteForce"];
-
-      result = {
-        anomaly: true,
-        attackType: attacks[Math.floor(Math.random() * attacks.length)],
-        timestamp: new Date(),
-      };
-    }
+if (rand < 0.8) {
+  // 🟢 NORMAL ONLY
+  result = {
+    anomaly: false,
+    attackType: "BENIGN",
+    timestamp: new Date(),
+  };
+} else {
+  // 🔴 ATTACK ONLY
+  const attacks = ["DDoS", "PortScan", "BruteForce"];
+console.log("🔥 NEW LOGIC RUNNING");
+  result = {
+    anomaly: true,
+    attackType: attacks[Math.floor(Math.random() * attacks.length)],
+    timestamp: new Date(),
+  };
+}
 
     console.log("Result:", result);
 
