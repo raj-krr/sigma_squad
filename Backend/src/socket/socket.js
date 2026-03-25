@@ -5,8 +5,10 @@ let io;
 function initSocket(server) {
   io = socketIo(server, {
     cors: {
-      origin: "*",
+      origin: "*", // later you can restrict to frontend URL
+      methods: ["GET", "POST"],
     },
+    transports: ["websocket"], // 🔥 IMPORTANT for Render
   });
 
   io.on("connection", (socket) => {
@@ -16,6 +18,8 @@ function initSocket(server) {
       console.log("❌ Client disconnected:", socket.id);
     });
   });
+
+  return io;
 }
 
 function getIO() {
